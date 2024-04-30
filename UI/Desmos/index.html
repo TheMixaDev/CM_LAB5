@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <script src="https://www.desmos.com/api/v1.8/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+        <style>
+            body {
+                margin: 0;
+                padding: 0;
+                overflow: hidden;
+            }
+            #calculator {
+                width: 100%;
+                height: 100%;
+                padding: 0;
+            }
+        </style>
+        <script>
+            let calculator;
+            let colors = ['red', 'green', 'blue']
+            let bounds = [-1, 1];
+            let graph = ``;
+            function init() {
+                calculator = Desmos.GraphingCalculator(document.getElementById('calculator'), {
+                    settingsMenu: false,
+                    keypad: false,
+                    expressions: true,
+                    language: 'ru'
+                });
+            }
+            function expression(latex, index) {
+                graph = latex;
+                calculator.setExpression({
+                    id: 'graph' + index,
+                    latex: latex,
+                    color: colors[index] ? colors[index] : "orange",
+                });
+            }
+            function clear() {
+                for (i of calculator.getExpressions())
+                    calculator.removeExpression({ id: i.id });
+                graph = ``;
+            }
+        </script>
+    </head>
+    <body>
+        <div id="calculator"></div>
+        <script>
+            init();
+        </script>
+    </body>
+</html>
